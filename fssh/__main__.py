@@ -1,10 +1,21 @@
+import os
 import requests
+import subprocess
 from bs4 import BeautifulSoup
 from host import Host
 
+SSH_LOGIN_TEMPLATE = 'ssh {}@{}.cs.utexas.edu'
+USER = 'UTCS_USERNAME'
+PASS = 'UTCS_PASSPHRASE'
+
 def fssh():
-    hosts = get_hosts()
-    hosts = filter_hosts(hosts)
+    hosts = filter_hosts(get_hosts())
+    if not hosts:
+        print('ERR: NO HOSTS AVAILABLE')
+        return;
+
+    command = SSH_LOGIN_TEMPLATE.format(os.environ[USER], hosts[len(hosts) - 1].host_name)
+    os.system(command)
 
 def get_hosts():
     hosts_page = requests.get('https://apps.cs.utexas.edu/unixlabstatus/')
