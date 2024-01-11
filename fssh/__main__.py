@@ -20,11 +20,11 @@ def fssh():
         return;
 
     res = hosts[len(hosts) - 1].host_name
+    command = SSH_LOGIN_TEMPLATE.format(os.environ[USER], res)
     if args.p:
-        pyperclip.copy(res)
+        pyperclip.copy(command)
         print(res)
     else:
-        command = SSH_LOGIN_TEMPLATE.format(os.environ[USER], res)
         subprocess.run(command, shell=True)
 
 class Host:
