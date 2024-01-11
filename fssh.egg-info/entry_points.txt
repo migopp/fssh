@@ -1,0 +1,2 @@
+[console_scripts]
+fssh = fssh.__main__:cli
