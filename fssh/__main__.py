@@ -1,12 +1,17 @@
 import os
 import requests
 import subprocess
+import argparse
+import pyperclip
 from bs4 import BeautifulSoup
-from host import Host
 
 SSH_LOGIN_TEMPLATE = 'ssh {}@{}.cs.utexas.edu'
 USER = 'UTCS_USERNAME'
 PASS = 'UTCS_PASSPHRASE'
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-p', help='Print ideal host rather than SSH-ing directly', action='store_true')
+args = parser.parse_args()
 
 def fssh():
     hosts = filter_hosts(get_hosts())
@@ -14,8 +19,22 @@ def fssh():
         print('ERR: NO HOSTS AVAILABLE')
         return;
 
-    command = SSH_LOGIN_TEMPLATE.format(os.environ[USER], hosts[len(hosts) - 1].host_name)
-    os.system(command)
+    res = hosts[len(hosts) - 1].host_name
+    if args.p:
+        pyperclip.copy(res)
+        print(res)
+    else:
+        command = SSH_LOGIN_TEMPLATE.format(os.environ[USER], res)
+        subprocess.run(command, shell=True)
+
+class Host:
+    def __init__(self, data):
+        self.host_name = data[0]
+        self.status = data[1] == 'up'
+        self.uptime = data[2][:len(data[2]) - 1] if ',' in data[2] else data[2]
+        self.users = int(data[3]) if self.status else None
+        self.load = float(data[4]) if self.status else None
+        self.load_flag = data[5]
 
 def get_hosts():
     hosts_page = requests.get('https://apps.cs.utexas.edu/unixlabstatus/')
