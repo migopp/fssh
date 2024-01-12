@@ -2,5 +2,5 @@
 venv/
 build/
 dist/
-fssh/__pycache__/
+*/__pycache__/
 fssh.egg-info/
