@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fssh"
-version = "1.0.0"
+version = "1.0.2"
 requires-python = ">=3.8"
 authors = [
      { name="Michael Goppert", email="goppert@cs.utexas.edu"},
@@ -24,5 +24,5 @@ dependencies = { file = ["requirements.txt"] }
 Homepage = "https://github.com/migopp/fssh"
 
 [project.scripts]
-fssh = "src.fssh.__main__:fssh"
-fssh-setup = "src.fssh.setup:setup"
+fssh = "fssh.__main__:fssh"
+fssh-setup = "fssh.setup:setup"
