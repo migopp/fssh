@@ -12,10 +12,16 @@ It could be faster.
 
 ![fssh-demo](https://github.com/migopp/fssh/assets/128272843/7f4c80c1-f871-438b-b1ee-99a1108de418)
 
+# Prereqs
+
+1. have macos or linux
+2. have python
+3. set up [UT SSH](https://www.cs.utexas.edu/facilities-documentation/ssh-keys-cs-mac-and-linux)
+
 # Installation
 
 1. `pip install fssh`
-2. run `fssh-setup`
+2. `fssh-setup`
 3. profit 💰
 
 # Usage
@@ -36,7 +42,7 @@ Part of SSH is entering your UTCS username and SSH passkey—fssh cannot bypass 
 
 I have implemented this through a setup script that logs this information to your respective shell profile (where you keep your API keys and such). This information is recorded [_solely_](https://github.com/migopp/fssh/blob/main/src/fssh/setup.py) on your local machine.
 
-Still worried? You can bypass the passphrase component in `fssh-setup`, doing so will net you the `fssh -p` functionality when you call `fssh` by default. You will still need to give your username, but that's public information anyhow.
+Still worried? You can bypass the passphrase component in `fssh-setup`: doing so will net you the `fssh -p` functionality when you call `fssh` by default. You will still need to give your username, but that's public information anyhow.
 
 # Terminal Usage
 
