@@ -1,5 +1,6 @@
 .DS_Store
 venv/
 build/
+dist/
 fssh/__pycache__/
 fssh.egg-info/
