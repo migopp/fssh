@@ -1,8 +1,10 @@
 import os
+import sys
 import requests
 import subprocess
 import argparse
 import pyperclip
+import pexpect
 from bs4 import BeautifulSoup
 
 SSH_LOGIN_TEMPLATE = 'ssh {}@{}.cs.utexas.edu'
@@ -10,7 +12,7 @@ USER = 'UTCS_USERNAME'
 PASS = 'UTCS_PASSPHRASE'
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-p', help='Print ideal host rather than SSH-ing directly', action='store_true')
+parser.add_argument('-p', help='print ideal host rather than SSH-ing directly', action='store_true')
 args = parser.parse_args()
 
 def fssh():
@@ -20,12 +22,19 @@ def fssh():
         return;
 
     res = hosts[len(hosts) - 1].host_name
-    command = SSH_LOGIN_TEMPLATE.format(os.environ[USER], res)
+    command = SSH_LOGIN_TEMPLATE.format(os.environ[USER], 'freud')
+
     if args.p:
         pyperclip.copy(command)
         print(res)
     else:
-        subprocess.run(command, shell=True)
+        child = pexpect.spawn(command)
+        responses = ['The .*', 'Enter .*']
+        if child.expect(responses) == 0:
+            child.sendline('yes')
+            child.expect(responses[1])
+        child.sendline(os.environ[PASS])
+        child.interact()
 
 class Host:
     def __init__(self, data):
