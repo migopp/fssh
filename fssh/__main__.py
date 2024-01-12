@@ -21,8 +21,8 @@ def fssh():
         print('ERR: NO HOSTS AVAILABLE')
         return;
 
-    res = hosts[len(hosts) - 1].host_name
-    command = SSH_LOGIN_TEMPLATE.format(os.environ[USER], 'freud')
+    best_host = hosts[len(hosts) - 1].host_name
+    command = SSH_LOGIN_TEMPLATE.format(os.environ[USER], best_host)
 
     if args.p:
         pyperclip.copy(command)
