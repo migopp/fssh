@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "fssh setup:"
+echo "SETUP \`fssh\`"
 echo
 echo "To fully automate the SSH login process, please provide your UTCS SSH credentials."
 echo
@@ -33,4 +33,6 @@ if [ ! -z "$passphrase" ]; then
 	fi
 fi
 
+echo
 echo "Setup complete."
+echo "You may use \`fssh\` now. See \`fssh -h\` for help."

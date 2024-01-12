@@ -15,7 +15,8 @@ setup(
     install_requires = reqs,
     entry_points = {
         'console_scripts': {
-            'fssh = fssh.__main__:fssh'
+            'fssh = fssh.__main__:fssh',
+            'fssh-setup = fssh.setup:setup'
         }
     }
 )
