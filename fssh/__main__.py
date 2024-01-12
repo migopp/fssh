@@ -10,8 +10,8 @@ import pexpect
 from bs4 import BeautifulSoup
 
 SSH_LOGIN_TEMPLATE = 'ssh {}@{}.cs.utexas.edu'
-USER = 'UTCS_USERNAME'
-PASS = 'UTCS_PASSPHRASE'
+USER = os.environ['UTCS_USERNAME'] if 'UTCS_USERNAME' in os.environ else None
+PASS = os.environ['UTCS_PASSPHRASE'] if 'UTCS_PASSPHRASE' in os.environ else None
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', help='print ideal host rather than SSH-ing directly', action='store_true')
@@ -22,21 +22,23 @@ def fssh():
     if not hosts:
         print('ERR: NO HOSTS AVAILABLE')
         return;
-
     best_host = hosts[len(hosts) - 1].host_name
-    command = SSH_LOGIN_TEMPLATE.format(os.environ[USER], best_host)
+    command = SSH_LOGIN_TEMPLATE.format(USER, best_host)
 
-    if args.p:
-        pyperclip.copy(command)
-        print(res)
+    if USER:
+        if args.p or not PASS:
+            pyperclip.copy(command)
+            print(best_host)
+        else:
+            child = pexpect.spawn(command)
+            responses = ['The .*', 'Enter .*']
+            if child.expect(responses) == 0:
+                child.sendline('yes')
+                child.expect(responses[1])
+            child.sendline(PASS)
+            child.interact()
     else:
-        child = pexpect.spawn(command)
-        responses = ['The .*', 'Enter .*']
-        if child.expect(responses) == 0:
-            child.sendline('yes')
-            child.expect(responses[1])
-        child.sendline(os.environ[PASS])
-        child.interact()
+        print(best_host)
 
 class Host:
     def __init__(self, data):
