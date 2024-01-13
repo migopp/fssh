@@ -38,6 +38,7 @@ def fssh():
             child.sendline(PASS)
             child.interact()
     else:
+        pyperclip.copy(best_host)
         print(best_host)
 
 class Host:

@@ -1,6 +1,6 @@
 # fssh 🐟
 
-> pronounced "fish"
+> "fish swim fast" - someone, probably
 
 A fast SSH tool for UT Austin CS students.
 
@@ -36,14 +36,14 @@ If that's not what you want, you can opt to add in the `-p` flag to print the op
 
 `fssh -h` for help (there's not a lot, it's pretty simple).
 
-# UTCS Credentials
+# On `fssh-setup`
 
 Part of SSH is entering your UTCS username and SSH passkey—fssh cannot bypass this, as it sadly is not magic. As such, to fully utilize fssh, [the script needs access to this information somehow](https://github.com/migopp/fssh/blob/main/src/fssh/__main__.py).
 
-I have implemented this through a setup script that logs this information to your respective shell profile (where you keep your API keys and such). This information is recorded [_solely_](https://github.com/migopp/fssh/blob/main/src/fssh/setup.py) on your local machine.
+This is implemented through a setup script that logs your credentials to your respective shell profile (where you keep your API keys and such). As such, the information is recorded on a safe place on your local machine.
 
-Still worried? You can bypass the passphrase component in `fssh-setup`: doing so will net you the `fssh -p` functionality when you call `fssh` by default. You will still need to give your username, but that's public information anyhow.
+Without interacting with `fssh-setup`, the script cannot provide you any more information than the optimal host name.
 
-# Terminal Usage
+# Terminal Choice
 
 The full `fssh` functionality works great for most terminals. Not so much for some fancier ones (_cough, cough Warp_). You may not get full functionality of your fancy terminal emulator. In such cases, the `fssh -p` command will probably do you best.
