@@ -20,9 +20,9 @@ def setup():
 
     shell = os.environ['SHELL']
     if shell == '/bin/bash':
-        shellrc = f'{os.path.expanduser("~")}/.bashrc'
+        shellrc = os.path.join(os.path.expanduser('~'), '.bashrc')
     elif shell == '/bin/zsh':
-        shellrc = f'{os.path.expanduser("~")}/.zshrc'
+        shellrc = os.path.join(os.path.expanduser('~'), '.zshrc')
     else:
         print(
         '''

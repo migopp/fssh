@@ -14,7 +14,7 @@ It could be faster.
 
 # Prereqs
 
-1. have macos or linux
+1. have bash or zsh or some other shell
 2. have python
 3. set up [UT SSH](https://www.cs.utexas.edu/facilities-documentation/ssh-keys-cs-mac-and-linux)
 
