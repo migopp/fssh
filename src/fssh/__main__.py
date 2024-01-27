@@ -26,16 +26,28 @@ def fssh():
     command = SSH_LOGIN_TEMPLATE.format(USER, best_host)
 
     if USER:
-        if args.p or not PASS:
+        if args.p:
             pyperclip.copy(command)
             print(best_host)
         else:
             child = pexpect.spawn(command)
-            responses = ['The .*', 'Enter .*']
-            if child.expect(responses) == 0:
+            responses = ['The .*', 'Enter .*', '[$]']
+            first = child.expect(responses)
+            if first == 0:
                 child.sendline('yes')
-                child.expect(responses[1])
-            child.sendline(PASS)
+                second = child.expect(responses)
+                if second == 1 and PASS:
+                    child.sendline(PASS)
+                    child.expect('[$]')
+                    child.sendline()
+                else:
+                    child.sendline()
+            elif first == 1 and PASS:
+                child.sendline(PASS)
+                child.expect('[$]')
+                child.sendline()
+            else:
+                child.sendline()
             child.interact()
     else:
         pyperclip.copy(best_host)
