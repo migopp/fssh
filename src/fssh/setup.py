@@ -7,15 +7,15 @@ import getpass
 def setup():
     print(
     '''
-    SETUP `fssh`
+SETUP `fssh`
 
-          /\\
-        _/./
-    ,-'    `-:.,-'/
-    > O )<)    _  (
-    `-._  _.:' `-.\\
-        `` \;
-    '''
+      /\\
+    _/./
+,-'    `-:.,-'/
+> O )<)    _  (
+`-._  _.:' `-.\\
+    `` \;
+'''
           )
 
     shell = os.environ['SHELL']
@@ -26,26 +26,18 @@ def setup():
     else:
         print(
         '''
-        You will need to manually set the environment variables UTCS_USERNAME (with your username)
-        and UTCS_PASSPHRASE (with your SSH passphrase, if applicable) in your shell profile.
+You will need to manually set the environment variables UTCS_USERNAME (with your username) and UTCS_PASSPHRASE (with your SSH passphrase, if applicable) in your shell profile.
         '''
               )
         return;
 
     print(
     '''
-    To fully automate the SSH login process, please provide your UTCS SSH credentials.
+To fully automate the SSH login process, please provide your UTCS SSH credentials.
 
-    Enter your credentials into the input spaces below, and this script will automatically
-    populate your shell profile. These will be saved in the environment variables UTCS_USERNAME
-    and UTCS_PASSPHRASE respectively. if you would like to do this manually, follow the below
-    instructions.
+Enter your credentials into the input spaces below, and this script will automatically populate your shell profile. These will be saved in the environment variables UTCS_USERNAME and UTCS_PASSPHRASE respectively. If you would like to do this manually, follow the below instructions.
 
-    skip past these commands below by leaving them both blank.
-    you will need to manually set the environment variables utcs_username (with your username)
-    and utcs_passphrase (with your ssh passphrase, if applicable) in your shell profile.
-    if you are using bash then your shell profile is `~/.bashrc`.
-    if you are using zsh then it is `~/.zshrc`.
+Skip past these commands below by leaving them both blank. you will need to manually set the environment variables UTCS_USERNAME (with your username) and UTCS_PASSPHRASE (with your ssh passphrase, if applicable) in your shell profile.
     '''
           )
     
@@ -62,8 +54,8 @@ def setup():
 
     print(
     '''
-    Setup complete.
-    You may now use `fssh`. See `fssh -h` for help.
+Setup complete.
+You may now use `fssh`. See `fssh -h` for help.
     '''
         )
 
